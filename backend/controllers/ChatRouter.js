@@ -1,48 +1,48 @@
 const express = require('express');
+const Message = require('../models/Chat');
+
 const router = express.Router();
 
-// Dummy data
-const chats = [
-  { chatId: 'chat1', participants: ['1', '2'], messages: ['Hi', 'Hey there!'] },
-  { chatId: 'chat2', participants: ['1', '3'], messages: ['Yo', 'Hello!'] }
-];
-
-const eventChats = [
-  { eventId: 'e1', name: 'NY Tech Meetup', chatroomId: 'ev1' },
-  { eventId: 'e2', name: 'Music Fest', chatroomId: 'ev2' }
-];
-
-
-router.get('/', (req, res) => {
+router.post('/messages', async (req, res) => {
   try {
-    const userChats = chats.filter(chat => chat.participants.includes('1')); // user id = 1
-    res.json(userChats);
+    const { sender, receiver, content, type, isSecret, expiresAt } = req.body;
+    const newMessage = new Message({
+      sender,
+      receiver,
+      content,
+      type,
+      isSecret,
+      expiresAt
+    });
+    await newMessage.save();
+    res.status(201).json({ message: 'Message created', messageData: newMessage });
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while fetching user chats.', details: error.message });
+    res.status(500).json({ message: 'Internal server error', error });
   }
 });
 
-
-router.get('/:chatId/messages', (req, res) => {
+router.get('/messages/:id', async (req, res) => {
   try {
-    const {chatId} = req.params;
-    const chat = chats.find(c => c.chatId === chatId);
-    if (!chat) {
-      return res.status(404).json({ message:"Chat not found" });
+    const message = await Message.findById(req.params.id).populate('sender receiver');
+    if (message) {
+      res.status(200).json({ message: 'Message retrieved', messageData: message });
+    } else {
+      res.status(404).json({ message: 'Message not found' });
     }
-    res.status(200).json(chat);
   } catch (error) {
-    res.status(500).json({ message:"An error occurred while fetching chat messages.",error});
+    res.status(500).json({ message: 'Internal server error', error });
   }
 });
 
-
-router.get('/events/rooms', (req, res) => {
+router.get('/messages', async (req, res) => {
   try {
-    res.json(eventChats);
+    const messages = await Message.find().populate('sender receiver');
+    res.status(200).json({ message: 'Messages retrieved', messages });
   } catch (error) {
-    res.status(500).json({ message:"An error occurred while fetching event chatrooms.",error });
+    res.status(500).json({ message: 'Internal server error', error });
   }
 });
+
+
 
 module.exports = router;

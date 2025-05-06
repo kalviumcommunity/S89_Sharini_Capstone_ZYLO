@@ -4,9 +4,12 @@ const userSchema = new mongoose.Schema({
   name:{
     type:String,
   },
-  email: String,
+  email: { type: String, required: true, unique: true },
   password: String,
-  profileImage: String,
+  profileImage: {
+    type:String,
+    default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+  },
   bio: String,
   location: String,
   interests: [String],
