@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/postuserdetails', async (req, res) => {
   try {
-    const { name, email, password, profileImage, bio, location, interests, isOnline, settings } = req.body;
+    const { name, email, profileImage, bio, location, interests, isOnline, settings } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ msg: 'User already exists with this email' });
@@ -33,7 +33,6 @@ router.post('/postuserdetails', async (req, res) => {
     const newUser = new User({
       name,
       email,
-      password,
       profileImage,
       bio,
       location,
