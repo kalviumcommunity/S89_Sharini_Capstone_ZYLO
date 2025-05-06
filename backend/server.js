@@ -4,7 +4,8 @@ const dotenv = require("dotenv");
 const UserRouter = require("./controllers/UserRouter");
 const ChatRouter = require("./controllers/ChatRouter");
 const PostRouter = require("./controllers/PostedRouter");
-const EventRouter = require("./controllers/EventRouter");
+const LiveRouter = require("./controllers/LiveRouter")
+
 dotenv.config();
 
 const app = express();
@@ -17,15 +18,14 @@ app.get("/zylo",async(req,res)=>{
     try {
         res.status(200).send({msg:"Welcome to ZYLO,let's start chatting and make friends.."});
     } catch (error) {
-        res.status(500).send({msg:"Something while getching data.."});
+        res.status(500).send({msg:"Something while fetching data.."});
     }
 });
 
 app.use('/api/users', UserRouter);
 app.use('/api/chats', ChatRouter);
 app.use('/api/posts', PostRouter);
-app.use('/api/events', EventRouter);
-
+app.use('/api/live',LiveRouter);
 
 
 app.listen(PORT, async () => {

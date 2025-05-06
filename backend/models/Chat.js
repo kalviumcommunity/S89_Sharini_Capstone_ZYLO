@@ -1,29 +1,15 @@
 const mongoose = require('mongoose');
 
-const chatRoomSchema = new mongoose.Schema({
-  participants: [
-    { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-  ],
-  isEventRoom: {
-    type: Boolean,
-    default: false
-  },
-  eventName: {
-    type: String,
-    default: ''
-  }
-}, {
-  timestamps: true
-});
-
 const messageSchema = new mongoose.Schema({
-  chatRoom: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'ChatRoom'
-  },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
+  },
+  receiver: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   content: {
     type: String,
@@ -39,11 +25,11 @@ const messageSchema = new mongoose.Schema({
     default: false
   },
   expiresAt: {
-    type: Date
+    type: Date,
+    default: null
   }
-}, {
-  timestamps: true
-});
+}, { timestamps: true });
 
-exports.ChatRoom = mongoose.model('ChatRoom', chatRoomSchema);
-exports.Message = mongoose.model('Message', messageSchema);
+const Message = mongoose.model('Message', messageSchema);
+
+module.exports = Message;
