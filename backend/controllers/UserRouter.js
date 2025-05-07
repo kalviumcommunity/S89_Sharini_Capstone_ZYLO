@@ -1,51 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const User = require('../models/User');
 
-router.get('/', async (req, res) => {
-  try {
-    const users = await User.find().select('-password');
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json({ msg: 'Internal Server Error', error: error.message });
-  }
+const dummyUsers = [
+  { id: 1, name: "Alice", email: "alice@example.com", profileImage: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg", bio: "Software engineer", location: "NY", interests: ["Coding", "Gaming"], isOnline: true, settings: { contactsOnly: true, secretChatMode: false } },
+  { id: 2, name: "Bob", email: "bob@example.com", profileImage: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg", bio: "Graphic designer", location: "LA", interests: ["Art", "Music"], isOnline: false, settings: { contactsOnly: false, secretChatMode: true } },
+];
+
+router.get("/usersdetails", (req, res) => {
+  res.status(200).json({ message: "All users retrieved", users: dummyUsers });
 });
 
-router.get('/:id', async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id).select('-password');
-    if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ msg: 'Internal Server Error', error: error.message });
-  }
-});
+router.get("/usersdetails/:id", (req, res) => {
+  const user = dummyUsers.find((u) => u.id === parseInt(req.params.id));
 
-router.post('/postuserdetails', async (req, res) => {
-  try {
-    const { name, email, profileImage, bio, location, interests, isOnline, settings } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ msg: 'User already exists with this email' });
-    }
-    const newUser = new User({
-      name,
-      email,
-      profileImage,
-      bio,
-      location,
-      interests,
-      isOnline,
-      settings
-    });
-    await newUser.save();
-    res.status(201).json({ msg: 'User created successfully', user: newUser });
-  } catch (error) {
-    res.status(500).json({ msg: 'Internal Server Error', error: error.message });
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
   }
-});
 
+  res.status(200).json({ message: "User retrieved", user });
+});
 
 module.exports = router;
