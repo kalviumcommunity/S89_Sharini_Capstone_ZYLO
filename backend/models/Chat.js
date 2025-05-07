@@ -20,10 +20,6 @@ const messageSchema = new mongoose.Schema({
     enum: ['text', 'image', 'gif', 'music'],
     default: 'text'
   },
-  isSecret: {
-    type: Boolean,
-    default: false
-  },
   expiresAt: {
     type: Date,
     default: null
