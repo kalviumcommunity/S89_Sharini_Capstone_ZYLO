@@ -8,7 +8,7 @@ const dummyPosts = [
 ];
 
 
-router.get("/memories/:caption", (req, res) => {
+router.get("/postmemories/:caption", (req, res) => {
   const caption = req.params.caption.toLowerCase();
   const posts = dummyPosts.filter((post) => post.caption.toLowerCase().includes(caption));
 
@@ -19,7 +19,7 @@ router.get("/memories/:caption", (req, res) => {
   res.status(200).json({ message: "Posts found", posts });
 });
 
-router.get("/memories", (req, res) => {
+router.get("/postmemories", (req, res) => {
   res.status(200).json({ message: "All posts retrieved", posts: dummyPosts });
 });
 
