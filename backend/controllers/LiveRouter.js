@@ -1,4 +1,9 @@
-router.post("/livemeetings", async (req, res) => {
+const express = require('express');
+const Live = require('../models/Live'); 
+
+const router = express.Router();
+
+router.post("/liveMeetingDetails", async (req, res) => {
     try {
       const { meetingTitle, host, participants, startTime, meetingLink, chat } = req.body;
   
@@ -14,3 +19,5 @@ router.post("/livemeetings", async (req, res) => {
       res.status(500).json({ message: "Internal server error", error });
     }
   });
+
+module.exports = router;
