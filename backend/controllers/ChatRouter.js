@@ -19,7 +19,7 @@ router.post("/messages", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 
-  router.get("/getmessagea/:id", async (req, res) => {
+  router.get("/getmessages/:id", async (req, res) => {
     try {
       const message = await Message.findById(req.params.id);
       if (!message) {
@@ -39,7 +39,7 @@ router.post("/messages", async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   });
-  
+
 });
 
 
