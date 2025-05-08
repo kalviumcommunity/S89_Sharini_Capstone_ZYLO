@@ -25,12 +25,12 @@ router.post('/postmemories', async (req, res) => {
 router.get('/getMemories/:id', async (req, res) => {
   try {
     const posts = await Memories.findById(req.params.id);
-    if(!posts){
-      return res.status(404).json({message:'No Posts are found'})
+    if(posts){
+      return res.status(200).json({ message: 'Posts found', posts });
     }
-    res.status(200).json({ message: 'Posts found', posts });
+    res.status(404).json({message:'No Posts are found'});
   } catch (error) {
-    res.status(500).json({ msg: 'Internal server error' })
+    res.status(500).json({ message: 'Internal server error' })
   }
 });
 
