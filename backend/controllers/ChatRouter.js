@@ -20,7 +20,6 @@ router.post("/message", async (req, res) => {
   }
 });
 
-
   router.get("/getmessages/:id", async (req, res) => {
     try {
       const message = await Message.findById(req.params.id);
@@ -42,5 +41,4 @@ router.post("/message", async (req, res) => {
     }
   });
 
-  
 module.exports = router;

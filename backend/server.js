@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const UserRouter = require("./controllers/UserRouter");
 const ChatRouter = require("./controllers/ChatRouter");
-const PostRouter = require("./controllers/PostedRouter");
+const PostRouter = require("./controllers/PostMemoriesRouter");
 
 dotenv.config();
 

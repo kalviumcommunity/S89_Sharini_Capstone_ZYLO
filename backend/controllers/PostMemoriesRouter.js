@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post');
+const Memories = require('../models/Post');
 
 router.post('/postmemories', async (req, res) => {
   try {
@@ -24,19 +24,20 @@ router.post('/postmemories', async (req, res) => {
 
 router.get('/getMemories/:id', async (req, res) => {
   try {
-    const posts = await Post.findById(req.params.id);
+    const posts = await Memories.findById(req.params.id);
     if (posts.length === 0) {
       return res.status(404).json({ message: 'No posts found with this id' });
     }
     res.status(200).json({ message: 'Posts found', posts });
   } catch (error) {
-    res.status(500).json({ msg: 'Internal server error'});
+    res.status(500).json({ msg: 'Internal server error' });
+
   }
 });
 
 router.get('/getMemories', async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Memories.find();
     res.status(200).json({ message: 'All posts retrieved', posts });
   } catch (error) {
     res.status(500).json({ msg: 'Internal server error'});
