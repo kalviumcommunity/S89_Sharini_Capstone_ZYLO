@@ -15,14 +15,11 @@ router.post('/postmemories', async (req, res) => {
       reactions,
       comments
     });
-
     await newPost.save();
     res.status(201).json({ message: 'Post created', post: newPost });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error'});
   }
-
-
 });
 
 router.get('/getMemories/:id', async (req, res) => {
@@ -33,7 +30,7 @@ router.get('/getMemories/:id', async (req, res) => {
     }
     res.status(200).json({ message: 'Posts found', posts });
   } catch (error) {
-    res.status(500).json({ msg: 'Internal server error', error: error.message });
+    res.status(500).json({ msg: 'Internal server error'});
   }
 });
 
@@ -42,7 +39,7 @@ router.get('/getMemories', async (req, res) => {
     const posts = await Post.find();
     res.status(200).json({ message: 'All posts retrieved', posts });
   } catch (error) {
-    res.status(500).json({ msg: 'Internal server error', error: error.message });
+    res.status(500).json({ msg: 'Internal server error'});
   }
 });
 
