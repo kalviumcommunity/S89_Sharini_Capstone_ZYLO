@@ -9,7 +9,7 @@ router.post('/liveMeetingDetails', async (req, res) => {
         const savedMeeting = await liveMeeting.save();
         res.status(201).json(savedMeeting);
     } catch (error) {
-        res.status(500).json({ message:"Error creating live meeting ",error: error.message });
+        res.status(400).json({ message:"Error creating live meeting ",error: error.message });
     }
 });
 
