@@ -21,33 +21,32 @@ const liveSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    endTime: {
-        type: Date,
-    },
     meetingLink: {
         type: String,
         required: true,
     },
     isActive: {
         type: Boolean,
-        default: true,
+        default: true
     },
     chat: [
         {
             sender: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
+                ref: 'User'
             },
             message: {
                 type: String,
-                required: true,
+                required: true
             },
             timestamp: {
                 type: Date,
-                default: Date.now,
+                default: Date.now
             },
         },
     ],
 }, { timestamps: true });
 
-module.exports = mongoose.model('Live', liveSchema);
+const Live= mongoose.model('Live', liveSchema);
+
+module.exports = Live;
