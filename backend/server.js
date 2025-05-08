@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const UserRouter = require("./controllers/UserRouter");
 const ChatRouter = require("./controllers/ChatRouter");
 const PostRouter = require("./controllers/PostedRouter");
-const LiveRouter = require("./controllers/LiveRouter")
 
 dotenv.config();
 
@@ -25,7 +24,7 @@ app.get("/zylo",async(req,res)=>{
 app.use('/api/users', UserRouter);
 app.use('/api/chats', ChatRouter);
 app.use('/api/posts', PostRouter);
-app.use('/api/live',LiveRouter);
+app.use("/api", require("./controllers/LiveRouter"));
 
 
 app.listen(PORT, async () => {

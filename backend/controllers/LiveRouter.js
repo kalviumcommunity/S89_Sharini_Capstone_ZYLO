@@ -1,45 +1,45 @@
 const express = require("express");
+const Live = require("../models/Live");
+
 const router = express.Router();
 
-const dummyLiveMeetings = [
-  {
-    id: 1,
-    meetingTitle: "Team Sync-Up",
-    host: { id: 101, name: "Alice" },
-    participants: [{ id: 102, name: "Bob" }, { id: 103, name: "Charlie" }],
-    startTime: "2025-05-07T10:00:00Z",
-    endTime: "2025-05-07T11:00:00Z",
-    meetingLink: "https://meet.example.com/team-sync",
-    isActive: true,
-    chat: [
-      { sender: { id: 102, name: "Bob" }, message: "Hey team!", timestamp: "2025-05-07T10:05:00Z" },
-      { sender: { id: 103, name: "Charlie" }, message: "All set for the discussion!", timestamp: "2025-05-07T10:10:00Z" }
-    ]
-  },
-  {
-    id: 2,
-    meetingTitle: "Project Kickoff",
-    host: { id: 104, name: "Dave" },
-    participants: [{ id: 105, name: "Emma" }],
-    startTime: "2025-05-07T14:00:00Z",
-    meetingLink: "https://meet.example.com/project-kickoff",
-    isActive: false,
-    chat: [{ sender: { id: 105, name: "Emma" }, message: "Excited for the new project!", timestamp: "2025-05-07T14:05:00Z" }]
-  }
-];
+router.post("/liveMeetingDetails", async (req, res) => {
+  try {
 
-router.get("/getmettingdetails", (req, res) => {
-  res.status(200).json({ message: "All live meetings retrieved", liveMeetings: dummyLiveMeetings });
+    const { meetingTitle, host, participants = [], startTime, meetingLink, chat = [] } = req.body;
+
+    if (!meetingTitle || !host || !startTime || !meetingLink) {
+      return res.status(400).json({ message: "Missing required fields." });
+    }
+
+    const newMeeting = new Live({ meetingTitle, host, participants, startTime, meetingLink, chat });
+    await newMeeting.save();
+
+    res.status(201).json({ message: "Live meeting created", liveMeeting: newMeeting });
+  } catch (error) {
+    console.error("Error creating live meeting:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
-router.get("/getmettingdetails/:id", (req, res) => {
-  const liveMeeting = dummyLiveMeetings.find((meeting) => meeting.id === parseInt(req.params.id));
-
-  if (!liveMeeting) {
-    return res.status(404).json({ message: "Meeting not found" });
-  }
-
-  res.status(200).json({ message: "Live meeting retrieved", liveMeeting });
+router.get("/allMeetings", async (req, res) => {
+  try {
+    const meetings = await Live.find();
+    res.status(200).json({ message: "Live meetings retrieved", meetings});
+  } catch (error) {
+    console.error("Error retrieving live meetings:", error);
+    res.status(500).json({ message: "Internal server error" });
+  };
 });
+
+router.get("/allMeetings/:id",async(req,res)=>{
+  try {
+    const meetingById = await Live.findById(req.params.id)
+    res.status(200).json({message:"Live meetings retrieved by Id",meetingById});
+  } catch (error) {
+    console.error("Error retrieving live meetings:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
 
 module.exports = router;
