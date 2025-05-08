@@ -16,7 +16,8 @@ router.post("/liveMeetingDetails", async (req, res) => {
   
       res.status(201).json({ message: "Live meeting created", liveMeeting: newMeeting });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error", error });
+      console.error("Error creating live meeting:", error); 
+      res.status(500).json({ message: "Internal server error" });
     }
   });
 
