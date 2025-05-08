@@ -3,7 +3,7 @@ const Message = require('../models/Chat');
 
 const router = express.Router();
 
-router.post("/messages", async (req, res) => {
+router.post("/message", async (req, res) => {
   try {
     const { sender, receiver, content, type, expiresAt } = req.body;
 
@@ -20,5 +20,8 @@ router.post("/messages", async (req, res) => {
   }
 
 });
+
+
+
 
 module.exports = router;
