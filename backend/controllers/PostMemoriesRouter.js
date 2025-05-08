@@ -25,13 +25,12 @@ router.post('/postmemories', async (req, res) => {
 router.get('/getMemories/:id', async (req, res) => {
   try {
     const posts = await Memories.findById(req.params.id);
-    if (posts.length === 0) {
-      return res.status(404).json({ message: 'No posts found with this id' });
+    if(!posts){
+      return res.status(404).json({message:'No Posts are found'})
     }
     res.status(200).json({ message: 'Posts found', posts });
   } catch (error) {
-    res.status(500).json({ msg: 'Internal server error' });
-
+    res.status(500).json({ msg: 'Internal server error' })
   }
 });
 
@@ -40,7 +39,7 @@ router.get('/getMemories', async (req, res) => {
     const posts = await Memories.find();
     res.status(200).json({ message: 'All posts retrieved', posts });
   } catch (error) {
-    res.status(500).json({ msg: 'Internal server error'});
+    res.status(500).json({ message: 'Internal server error'});
   }
 });
 

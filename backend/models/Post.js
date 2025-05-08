@@ -21,6 +21,6 @@ const postSchema = new mongoose.Schema({
   }]
 }, { timestamps: true });
 
-const Memories = mongoose.model('Post', postSchema);
+const Memories = mongoose.model('Posts', postSchema);
 
 module.exports = Memories;
