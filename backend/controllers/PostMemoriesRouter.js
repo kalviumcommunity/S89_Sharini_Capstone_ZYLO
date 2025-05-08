@@ -27,8 +27,7 @@ router.post('/postmemories', async (req, res) => {
 
     res.status(201).json({ message: 'Post created', post: newPost });
   } catch (error) {
-    console.error('Error creating post:', error.message); // Log the error for debugging
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+    res.status(500).json({ message: 'Internal server error'});
   }
 });
 
