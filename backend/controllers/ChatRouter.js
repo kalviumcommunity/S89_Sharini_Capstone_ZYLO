@@ -3,20 +3,20 @@ const Message = require('../models/Chat');
 
 const router = express.Router();
 
-router.post('/messages', async (req, res) => {
+router.post("/messages", async (req, res) => {
   try {
     const { sender, receiver, content, type, expiresAt } = req.body;
-    const newMessage = new Message({
-      sender,
-      receiver,
-      content,
-      type,
-      expiresAt
-    });
+
+    if (!sender || !receiver || !content) {
+      return res.status(400).json({ message: "Sender, receiver, and content are required." });
+    }
+
+    const newMessage = new Message({ sender, receiver, content, type, expiresAt });
     await newMessage.save();
-    res.status(201).json({ message: 'Message created', messageData: newMessage });
+
+    res.status(201).json({ message: "Message created", messageData: newMessage });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
   
 });

@@ -3,7 +3,7 @@ const Live = require('../models/Live');
 
 const router = express.Router();
 
-router.post('/livemettingdetails', async (req, res) => {
+router.post('/livemetingdetails', async (req, res) => {
     try {
         const liveMeeting = new Live(req.body);
         const savedMeeting = await liveMeeting.save();
