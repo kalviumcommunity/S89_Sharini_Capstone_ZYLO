@@ -31,7 +31,10 @@ router.get("/allMeetings", async (req, res) => {
 
 router.get("/allMeetings/:id",async(req,res)=>{
   try {
-    const meetingById = await Live.findById(req.params.id)
+    const meetingById = await Live.findById(req.params.id);
+    if(!meetingById){
+      return res.status(404).json({message:"Meeting not found"});
+    }
     res.status(200).json({message:"Live meetings retrieved by Id",meetingById});
   } catch (error) {
     console.error("Error retrieving live meetings:", error);
