@@ -57,7 +57,7 @@ router.put('/updateMemories/:id', async (req, res) => {
     const { user, image, caption, filters, reactions, comments } = req.body;
     const updatedPost = await Memories.findByIdAndUpdate(req.params.id, { user, image, caption, filters, reactions, comments },{ new: true });
     if (!updatedPost) {
-      res.status(404).json({ message: 'you donit have a post with this ID' });
+      res.status(404).json({ message: 'Post not found with this ID' });
     }
     res.status(200).json({ message: 'Post updated', post: updatedPost });
   } catch (error) {
