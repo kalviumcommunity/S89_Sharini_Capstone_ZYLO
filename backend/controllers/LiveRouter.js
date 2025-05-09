@@ -49,7 +49,7 @@ router.put('/updateMeetingDetails/:id', async (req, res) => {
       res.status(200).json(updatedMeeting);
   } catch (error) {
       console.error("Error updating live meetings:", error);
-      res.status(500).json({message:"Invalid data formatte"});
+      res.status(500).json({message:"Internal server error"});
   }
 });
 
