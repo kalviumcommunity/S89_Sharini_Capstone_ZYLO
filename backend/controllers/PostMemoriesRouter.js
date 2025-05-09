@@ -52,4 +52,17 @@ router.get('/getMemories', async (req, res) => {
   }
 });
 
+router.put('/updateMemories/:id', async (req, res) => {
+  try {
+    const { user, image, caption, filters, reactions, comments } = req.body;
+    const updatedPost = await Memories.findByIdAndUpdate(req.params.id, { user, image, caption, filters, reactions, comments },{ new: true });
+    if (!updatedPost) {
+      res.status(404).json({ message: 'Post not found' });
+    }
+    res.status(200).json({ message: 'Post updated', post: updatedPost });
+  } catch (error) {
+    res.status(500).json({ msg: 'Internal server error'});
+  }
+});
+
 module.exports = router;
