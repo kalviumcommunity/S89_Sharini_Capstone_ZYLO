@@ -40,4 +40,17 @@ router.get("/allMeetings/:id",async(req,res)=>{
 });
 
 
+router.put('/updateMeetingDetails/:id', async (req, res) => {
+  try {
+      const updatedMeeting = await Live.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+      if (!updatedMeeting) {
+          return res.status(404).json({ error: 'Meeting not found' });
+      }
+      res.status(200).json(updatedMeeting);
+  } catch (error) {
+      console.error("Error updating live meetings:", error);
+      res.status(500).json({message:"Invalid data formatte"});
+  }
+});
+
 module.exports = router;

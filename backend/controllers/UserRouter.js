@@ -47,5 +47,22 @@ router.get('/getAllUsers/:id', async (req, res) => {
   }
 });
 
+router.put('/updateProfile/:id', async (req, res) => {
+  try {
+    const { name, bio, email, location, profileImage, interests,connections, isOnline, settings } = req.body;
+    if (!req.params.id) {
+      return res.status(400).json({ msg: 'User ID is required' });
+    }
+    const updatedUser = await User.findByIdAndUpdate(req.params.id,{ name, bio, email, location, profileImage, interests,connections, isOnline, settings },{ new: true, runValidators: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    res.status(200).json({ msg: 'User updated successfully', user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ msg: 'Internal Server Error'});
+  }
+});
 
 module.exports = router;
