@@ -65,4 +65,17 @@ router.put('/updateProfile/:id', async (req, res) => {
   }
 });
 
+router.delete('/deleteUser/:id', async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+    res.status(200).json({ msg: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ msg: 'Internal Server Error'});
+  }
+});  
+
+
 module.exports = router;
