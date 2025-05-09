@@ -53,4 +53,17 @@ router.post("/message", async (req, res) => {
     }
   });  
 
+  router.delete('/deleteMessages/:id', async (req, res) => {
+    try {
+      const deletedMessage = await Message.findByIdAndDelete(req.params.id);
+      if (!deletedMessage) {
+        return res.status(404).json({ message: 'Message not found' });
+      }
+      res.status(200).json({ message: 'Message deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error', error });
+    }
+  });
+
+
 module.exports = router;
