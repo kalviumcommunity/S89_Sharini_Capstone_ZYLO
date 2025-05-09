@@ -61,7 +61,7 @@ router.put('/updateMemories/:id', async (req, res) => {
     }
     res.status(200).json({ message: 'Post updated', Memory: updatedPost });
   } catch (error) {
-    res.status(500).json({ msg: 'Internal server error'});
+    res.status(500).json({ message: 'Internal server error'});
   }
 });
 

@@ -61,7 +61,8 @@ router.delete('/cancelMeeting/:id', async (req, res) => {
       }
       res.status(200).json({ message: 'Meeting cancelled successfully' }); 
   } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error("Error cancelling live meetings:", error);
+      res.status(500).json({message:"Internal server error" });
   }
 });
 
