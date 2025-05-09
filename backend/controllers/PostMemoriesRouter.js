@@ -57,9 +57,9 @@ router.put('/updateMemories/:id', async (req, res) => {
     const { user, image, caption, filters, reactions, comments } = req.body;
     const updatedPost = await Memories.findByIdAndUpdate(req.params.id, { user, image, caption, filters, reactions, comments },{ new: true });
     if (!updatedPost) {
-      res.status(404).json({ message: 'Post not found with this ID' });
+      return res.status(404).json({ message: 'Post not found with this ID' });
     }
-    res.status(200).json({ message: 'Post updated', post: updatedPost });
+    res.status(200).json({ message: 'Post updated', Memory: updatedPost });
   } catch (error) {
     res.status(500).json({ msg: 'Internal server error'});
   }
