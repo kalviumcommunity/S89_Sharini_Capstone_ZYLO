@@ -13,7 +13,10 @@ const userSchema = new mongoose.Schema({
   location: String,
   interests: [String],
   connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  isOnline: Boolean,
+  isOnline: {
+    type:Boolean,
+    default:false 
+  },
   settings: {
     contactsOnly: Boolean,
     secretChatMode: Boolean
