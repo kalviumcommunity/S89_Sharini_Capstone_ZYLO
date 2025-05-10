@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "CURD_Requests_Capstone_project_ZYLO copy",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

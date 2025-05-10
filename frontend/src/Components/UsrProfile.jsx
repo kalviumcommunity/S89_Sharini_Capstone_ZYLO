@@ -49,7 +49,7 @@ const UsrProfile = () => {
           <strong>Interests:</strong> {user.interests && user.interests.length > 0 ? user.interests.join(', ') : 'No interests added'}
         </p>
         <p style={{ fontSize: '1rem', color: '#555', margin: '5px 0' }}>
-          <strong>Connections:</strong> {user.connections ? user.connections.length : 0}
+          <strong>Connections:</strong> {user.connections ? user.connections.join(",") :"No connections yet"}
         </p>
         <p style={{ fontSize: '1rem', color: user.isOnline ? 'green' : 'red', margin: '5px 0' }}>
           <strong>Status:</strong> {user.isOnline ? 'Online' : 'Offline'}
