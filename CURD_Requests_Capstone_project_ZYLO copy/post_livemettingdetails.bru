@@ -1,0 +1,27 @@
+meta {
+  name: post_livemettingdetails
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:2309/api/liveMeetingDetails
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "meetingTitle": "Team Sync",
+    "host": ["660d5a6f4c3b8b001cbbaa12"],
+    "participants": ["660d5a6f4c3b8b001cbbaa34"],
+    "startTime": "2025-05-08T10:00:00Z",
+    "meetingLink": "https://meet.example.com/team-sync",
+    "chat": [
+      {
+        "sender": "660d5a6f4c3b8b001cbbaa34",
+        "message": "Excited for the meeting!"
+      }
+    ]
+  }
+}

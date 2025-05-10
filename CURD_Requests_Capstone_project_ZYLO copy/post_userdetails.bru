@@ -1,0 +1,27 @@
+meta {
+  name: post_userdetails
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:2309/api/users/postuserdetails
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "name": "david",
+      "email": "david@example.com",
+      "bio": "Graphic designer",
+      "location": "LA",
+      "interests": ["Art"],
+      "isOnline": true,
+      "settings": {
+        "contactsOnly": false,
+        "secretChatMode": true
+      }
+    }
+  
+}

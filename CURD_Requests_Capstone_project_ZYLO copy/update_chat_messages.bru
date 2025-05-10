@@ -1,0 +1,22 @@
+meta {
+  name: update_chat_messages
+  type: http
+  seq: 10
+}
+
+put {
+  url: http://localhost:2309/api/chats/updateMessages/681c4c0d12db6562d130d2cf
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "sender": "660d5a6f4c3b8b001cbbaa12",
+      "receiver": "660d5a6f4c3b8b001cbbaa34",
+      "content": "Check out this picture!",
+      "type": "image",
+      "imageUrl": "https://example.com/image.jpg",
+      "expiresAt": "2025-05-08T13:00:00Z"
+    }
+}

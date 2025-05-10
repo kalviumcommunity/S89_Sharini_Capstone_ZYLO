@@ -1,0 +1,29 @@
+meta {
+  name: update_userProfile
+  type: http
+  seq: 13
+}
+
+put {
+  url: http://localhost:2309/api/users/updateProfile/68062a291a7df2fed8fb54fe
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "_id": "660d5a6f4c3b8b001cbbaa12",
+      "name": "samule Johnson",
+      "email": "samule@example.com",
+      "profileImage": "https://example.com/alice-profile.jpg",
+      "bio": "Software engineer passionate about AI and backend development.",
+      "location": "San Francisco, USA",
+      "interests": ["Coding", "Hiking", "Music"],
+      "connections": ["660d5a6f4c3b8b001cbbaa34", "660d5a6f4c3b8b001cbbaa56"],
+      "isOnline": true,
+      "settings": {
+        "contactsOnly": true,
+        "secretChatMode": false
+      }
+    }
+}
