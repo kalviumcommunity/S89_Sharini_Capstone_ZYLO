@@ -27,7 +27,7 @@ const liveSchema = new mongoose.Schema({
     },
     isActive: {
         type: Boolean,
-        default: true
+        default: false
     },
     chat: [
         {

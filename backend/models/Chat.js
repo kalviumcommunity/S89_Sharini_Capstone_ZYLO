@@ -12,13 +12,16 @@ const messageSchema = new mongoose.Schema({
     required: true
   },
   content: {
-    type: String,
-    required: true
+    type: String
   },
   type: {
     type: String,
     enum: ['text', 'image', 'gif', 'music'],
     default: 'text'
+  },
+  readStatus: {
+    type: Boolean,
+    default: false
   },
   expiresAt: {
     type: Date,
