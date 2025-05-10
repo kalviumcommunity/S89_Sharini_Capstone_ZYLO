@@ -17,6 +17,7 @@ app.get("/zylo",async(req,res)=>{
     try {
         res.status(200).send({msg:"Welcome to ZYLO,let's start chatting and make friends.."});
     } catch (error) {
+        console.log(error)
         res.status(500).send({msg:"Something went wrong while fetching data.."});
     }
 });
