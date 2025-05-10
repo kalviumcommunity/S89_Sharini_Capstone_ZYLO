@@ -8,8 +8,8 @@ function App() {
 
   return (
     <>
-      <h1>zylo</h1>
-    </>
+    <h1>Zylo</h1>
+     </>
   )
 }
 
