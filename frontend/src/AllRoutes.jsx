@@ -9,7 +9,7 @@ const AllRoutes = () => {
   return (
     <Routes>
         <Route path="/" element={<Homepage/>} />
-        <Route path="/chat" element={<Chatpage/>} />
+        <Route path="/chat/:userId" element={<Chatpage/>} />
         <Route path='/lumeo' element={<Lumeno/>} />
         <Route path='/userProfile' element={<UsrProfile/>} />
     </Routes>
