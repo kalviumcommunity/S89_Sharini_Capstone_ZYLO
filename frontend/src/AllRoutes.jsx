@@ -1,13 +1,13 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Homepage from './Components/Homepage'
-import UsrProfile from './Components/UsrProfile'
+import HomePage from './Components/Homepage'
+
+
 
 const AllRoutes = () => {
   return (
     <Routes>
-        <Route path="/" element={<Homepage/>} />
-        <Route path='/userProfile' element={<UsrProfile/>} />
+      <Route path="/" element={<HomePage/>} />
     </Routes>
   )
 }
