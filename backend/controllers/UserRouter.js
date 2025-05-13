@@ -24,10 +24,58 @@ router.post('/postuserdetails', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Internal Server Error'});
   }
-
 });
 
+router.get('/getAllUsers', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error'});
+  }
+});
 
+router.get('/getAllUsers/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found'});
+    }
+    res.status(200).json({message:"User found",user});
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error'});
+  }
+});
+
+router.put('/updateProfile/:id', async (req, res) => {
+  try {
+    const { name, bio, email, location, profileImage, interests,connections, isOnline, settings } = req.body;
+    if (!req.params.id) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+    const updatedUser = await User.findByIdAndUpdate(req.params.id,{ name, bio, email, location, profileImage, interests,connections, isOnline, settings },{ new: true, runValidators: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error'});
+  }
+});
+
+router.delete('/deleteUser/:id', async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error'});
+  }
+});  
 
 
 module.exports = router;
