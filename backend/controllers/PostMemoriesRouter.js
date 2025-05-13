@@ -1,35 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Memories = require('../models/Post'); 
-router.post('/postmemories', async (req, res) => {
-  try {
-    const { user, image, caption, description, filters, reactions, comments } = req.body;
-
-    if (!user || !image || !caption) {
-      return res.status(400).json({ message: 'Please enter required fields.' });
-    }
-
-    const existingPost = await Memories.findOne({ caption });
-    if (existingPost) {
-      return res.status(400).json({ message: 'Post already exists with this caption' });
-    }
-
-    const newPost = new Memories({
-      user,
-      image,
-      caption,
-      description,
-      filters,
-      reactions,
-      comments
-    });
-    await newPost.save();
-
-    res.status(201).json({ message: 'Post created', post: newPost });
-  } catch (error) {
-    res.status(500).json({ message: 'Internal server error'});
-  }
-});
 
 router.get('/getMemories/:id', async (req, res) => {
   try {
