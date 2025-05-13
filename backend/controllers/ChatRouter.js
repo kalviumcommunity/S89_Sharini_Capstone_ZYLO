@@ -16,6 +16,7 @@ router.post("/message", async (req, res) => {
 
     res.status(201).json({ message: "Message created", messageData: newMessage });
   } catch (error) {
+    console.error("Error in POST /message:", error);
     res.status(500).json({ message: "Internal server error." });
   }
 });
@@ -28,6 +29,7 @@ router.post("/message", async (req, res) => {
       }
       res.status(200).json({ message: "Message retrieved", messageData: message });
     } catch (error) {
+      console.error("Error in GET /getmessages/:id:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   });
@@ -37,6 +39,7 @@ router.post("/message", async (req, res) => {
       const messages = await Message.find();
       res.status(200).json({ message: "Messages retrieved", messages });
     } catch (error) {
+      console.error("Error in GET /getmessages:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   });
@@ -49,6 +52,7 @@ router.post("/message", async (req, res) => {
       }
       res.status(200).json({ message: 'Message updated', messageData: updatedMessage });
     } catch (error) {
+      console.error("Error in PUT /updateMessages/:id:", error);
       res.status(500).json({ message: 'Internal server error', error });
     }
   });  
@@ -61,6 +65,7 @@ router.post("/message", async (req, res) => {
       }
       res.status(200).json({ message: 'Message deleted successfully' });
     } catch (error) {
+      console.error("Error in DELETE /deleteMessages/:id:", error);
       res.status(500).json({ message: 'Internal server error', error });
     }
   });

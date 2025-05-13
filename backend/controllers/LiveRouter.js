@@ -16,7 +16,7 @@ router.post("/liveMeetingDetails", async (req, res) => {
   
       res.status(201).json({ message: "Live meeting created", liveMeeting: newMeeting });
     } catch (error) {
-      console.error("Error creating live meeting:", error); 
+      console.error("Error in POST /liveMeetingDetails:", error); 
       res.status(500).json({ message: "Internal server error" });
     }
   }); 
@@ -39,7 +39,7 @@ router.get("/allMeetings/:id",async(req,res)=>{
     }
     res.status(200).json({message:"Live meetings retrieved by Id",meetingById});
   } catch (error) {
-    console.error("Error retrieving live meetings:", error);
+    console.error("Error retrieving live meetings by Id:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

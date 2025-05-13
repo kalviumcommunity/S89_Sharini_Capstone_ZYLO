@@ -12,9 +12,6 @@ router.post('/postmemories', async (req, res) => {
     }
 
     const existingPost = await Memories.findOne({ caption });
-    if (existingPost) {
-      return res.status(400).json({ message: 'Post already exists with this caption' });
-    }
 
     const newPost = new Memories({
       user,
@@ -29,6 +26,7 @@ router.post('/postmemories', async (req, res) => {
 
     res.status(201).json({ message: 'Post created', post: newPost });
   } catch (error) {
+    console.error('Error in  POST /postmemories', error);
     res.status(500).json({ message: 'Internal server error'});
   }
 });
@@ -41,6 +39,7 @@ router.get('/getMemories/:id', async (req, res) => {
     }
     res.status(200).json({ message: 'Posts found', posts }); 
   } catch (error) {
+    console.error('Error in GET /getMemories/:id', error);
     res.status(500).json({ message: 'Internal server error' })
   }
 });
@@ -50,6 +49,7 @@ router.get('/getMemories', async (req, res) => {
     const posts = await Memories.find();
     res.status(200).json({ message: 'All posts retrieved', posts });
   } catch (error) {
+    console.error('Error in GET /getMemories', error);
     res.status(500).json({ message: 'Internal server error'});
   }
 });
@@ -63,6 +63,7 @@ router.put('/updateMemories/:id', async (req, res) => {
     }
     res.status(200).json({ message: 'Post updated', Memory: updatedPost });
   } catch (error) {
+    console.error('Error in PUT /updateMemories/:id', error);
     res.status(500).json({ message: 'Internal server error'});
   }
 });
@@ -75,6 +76,7 @@ router.delete('/deleteMemories/:id', async (req, res) => {
     }
     res.status(200).json({ message: 'Post deleted successfully' });
   } catch (error) {
+    console.error('Error in DELETE /deleteMemories/:id', error);
     res.status(500).json({ message: 'Internal server error'});
   }
 });
