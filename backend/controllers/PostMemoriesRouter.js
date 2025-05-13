@@ -6,7 +6,7 @@ router.post('/postmemories', async (req, res) => {
     const { user, image, caption, description, filters, reactions, comments } = req.body;
 
     if (!user || !image || !caption) {
-      return res.status(400).json({ message: 'Missing required fields' });
+      return res.status(400).json({ message: 'Please enter required fields.' });
     }
 
     const existingPost = await Memories.findOne({ caption });
