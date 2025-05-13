@@ -8,7 +8,7 @@ router.post("/message", async (req, res) => {
     const { sender, receiver, content, type, expiresAt } = req.body;
 
     if (!sender || !receiver || !content) {
-      return res.status(400).json({ message: "Sender, receiver, and content are required." });
+      return res.status(400).json({ message: "Sender, receiver, and content are required" });
     }
 
     const newMessage = new Message({ sender, receiver, content, type, expiresAt });

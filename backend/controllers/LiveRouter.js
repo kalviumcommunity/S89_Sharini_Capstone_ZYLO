@@ -8,7 +8,7 @@ router.post("/liveMeetingDetails", async (req, res) => {
       const { meetingTitle, host, participants, startTime, meetingLink, chat } = req.body;
   
       if (!meetingTitle || !host || !startTime || !meetingLink) {
-        return res.status(400).json({ message: "Missing required fields." });
+        return res.status(400).json({ message: "Missing required fields" });
       }
   
       const newMeeting = new Live({ meetingTitle, host, participants, startTime, meetingLink, chat });
