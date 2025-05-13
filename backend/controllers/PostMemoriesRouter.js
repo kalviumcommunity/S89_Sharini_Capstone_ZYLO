@@ -11,8 +11,6 @@ router.post('/postmemories', async (req, res) => {
       return res.status(400).json({ message: 'Please fill required fields' });
     }
 
-    const existingPost = await Memories.findOne({ caption });
-
     const newPost = new Memories({
       user,
       image,
