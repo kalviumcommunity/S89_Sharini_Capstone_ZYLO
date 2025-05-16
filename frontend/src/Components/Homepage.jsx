@@ -5,9 +5,9 @@ const Homepage = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', position: 'relative', height: '100vh' }}>
+    <div>
       <div style={{ textAlign: 'center', paddingTop: '100px' }}>
-        <h1 style={{ fontSize: '3rem', color: '#007bff' }}>Welcome to Zylo</h1>
+        <h1 >Welcome to Zylo</h1>
         <p style={{ fontSize: '1.2rem', color: 'white', marginTop: '20px' }}>
           Connect, chat, and share your moments with friends. Start your journey now!
         </p>
