@@ -1,21 +1,23 @@
 import React from "react";
 import "../Styles/Homepage.css";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+  const navigate = useNavigate();
   return (
-    <div className="homepage-wrapper" style={{justifyContent:"center",width:"1515px"}}>
+    <div className="homepage-wrapper">
         <header className="homepage-header">
           <div className="logo" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
   <img 
-    src="https://files.oaiusercontent.com/file-N5FB73rLiQ7tiEX8UN2jUm?se=2025-05-13T08%3A58%3A39Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D1747117188961.png&sig=V%2BoT9mD84jfsiwG8rWEIUVNA%2BB9Zthy1/qavhDHF/l0%3D" 
+    src="https://sdmntprwestus2.oaiusercontent.com/files/00000000-1d10-61f8-b3de-eb9d25711ed3/raw?se=2025-05-14T07%3A45%3A44Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=30ec2761-8f41-44db-b282-7a0f8809659b&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-13T23%3A15%3A58Z&ske=2025-05-14T23%3A15%3A58Z&sks=b&skv=2024-08-04&sig=gCCUpGYZwhSperucGyGLqbJ4qY%2BGBqTfaxka6modtTU%3D" 
     alt="Zylo Logo" 
     style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "40%", marginRight: "0px" }} 
   />
   <p style={{ fontSize: "1.7rem", fontWeight:"inherit" }}>Zylo</p>
 </div>
           <nav className="nav-links">
-            <button className="login-btn" style={{width:"150px",height:"55px"}}>Log in</button>
-            <button className="signup-btn" style={{width:"150px",height:"55px"}}>Sign up</button>
+            <button className="login-btn" style={{width:"150px",height:"55px"}} onClick={()=> navigate("/login")}>Log in</button>
+            <button className="signup-btn" style={{width:"150px",height:"55px"}} onClick={()=> navigate("/signup")}>Sign up</button>
           </nav>
         </header>
 
@@ -27,10 +29,16 @@ function HomePage() {
               className="hero-img"
               style={{ width: "400px", height: "500px", maxWidth: "800px", borderRadius: "20px", marginBottom: "20px" }}
             />
-            <div style={{justifyContent:"center"}}>
-                <h1 style={{alignSelf:"center"}}>Stay Close, No Matter the Distance</h1>
-                <p style={{alignSelf:"center"}}>Connect with people around you, share moments, and chat with ease.</p>
-                <button className="cta-btn" >Get Started</button>
+            <div>
+                <div className="center-container">
+                  <h1>Stay Close, No Matter the Distance</h1>
+                </div>
+                <div className="center-container">
+                  <p>Connect with people around you, share moments, and chat with ease.</p>
+                </div>
+                <div className="center-container">
+                  <button className="cta-btn" >Get Started</button>
+                </div>
             </div>
           </section>
 
@@ -52,7 +60,7 @@ function HomePage() {
                 </p>
               </div>
               <div className="feature-card">
-                <img src="https://th.bing.com/th/id/OIP.-mtwMTAZCteiSUqLb8Q9hAHaEy?rs=1&pid=ImgDetMain" alt="Privacy and Control" />
+                <img src="https://i.pinimg.com/736x/b8/4b/ed/b84bedd339d00c83ee73e2829de0df5b.jpg" alt="Privacy and Control" />
                 <h3>Privacy and Control</h3>
                 <p>
                   Advanced privacy modes like Contacts-Only, Secret Chats, and Disappearing Messages address the need for secure communication.

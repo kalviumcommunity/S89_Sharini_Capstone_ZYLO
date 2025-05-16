@@ -22,8 +22,6 @@ ul {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  height: auto;
-  width: auto;
 }
 
 /* Header Styles */
@@ -32,10 +30,12 @@ ul {
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background: linear-gradient(135deg, #7b9ab9, #8bbbd6);
+  background: linear-gradient(135deg, #357eab, #357eab);
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: white;
+  height: 57px;
+
 }
 
 .logo {
@@ -62,16 +62,17 @@ ul {
 .nav-links button {
   background-color: #99cbe8;
   color: #222424;
-  border: 2px solid #a7dfe1;
+  border: 2px solid #30a2a6;
   font-size: 1rem;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 .nav-links button:hover {
-  background-color: #60a4d5;
+  background-color: rgb(76, 126, 173); 
   color: #ffffff;
 }
 
@@ -81,8 +82,10 @@ ul {
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #4b76a0, #f4f6f6);
-  color: #0a0404;
+  background: linear-gradient(135deg, #b2d3e6,#4b76a0);
+  color: #edf1f4;
+  text-align: center;
+
 }
 
 .hero-content {
@@ -119,18 +122,28 @@ ul {
   margin-bottom: 25px;
 }
 
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   /* Full viewport height */
+}
+
 .cta-btn {
   font-size: 1.1rem;
-  background-color: #8ebdf1;
-  color: #0e2844;
+  background-color: #3a689c;
+  color: #fffafa;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  height: 50px;
+  width: 150px;
 }
 
 .cta-btn:hover {
   background-color: #d1e7ff;
+  color: #36648d;
   transform: scale(1.05);
   justify-items: center;
 }
@@ -145,7 +158,7 @@ ul {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 40px;
-  color: #007bff;
+  color: #003256;
 }
 
 .features-grid {
@@ -180,7 +193,7 @@ ul {
 .feature-card h3 {
   font-size: 1.4rem;
   margin-bottom: 10px;
-  color: #007bff;
+  color: #073b74;
 }
 
 .feature-card p {
@@ -198,7 +211,7 @@ ul {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 40px;
-  color: #007bff;
+  color: #094c93;
 }
 
 .testimonials-grid {
@@ -251,4 +264,12 @@ ul {
   display: flex;
   justify-content: center;
   background-color: #131415;
+}
+
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

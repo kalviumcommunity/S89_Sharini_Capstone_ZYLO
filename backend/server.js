@@ -4,12 +4,14 @@ const dotenv = require("dotenv");
 const UserRouter = require("./controllers/UserRouter");
 const ChatRouter = require("./controllers/ChatRouter");
 const PostRouter = require("./controllers/PostMemoriesRouter");
+const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors);
 
 const PORT = 2309; 
 
@@ -27,6 +29,7 @@ app.use('/api/users', UserRouter);
 app.use('/api/chats', ChatRouter);
 app.use('/api/posts', PostRouter);
 app.use("/api", require("./controllers/LiveRouter"));
+app.use("/api/auth", require("./controllers/UserAuthRouter"));
 
 
 app.listen(PORT, async () => {
