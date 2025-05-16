@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import UsrProfile from './Components/UserProfile'
 import Homepage from './Components/Homepage'
-import UsrProfile from './Components/UsrProfile'
 
 const AllRoutes = () => {
   return (
