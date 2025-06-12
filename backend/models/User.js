@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  name:{
+  username:{
     type:String,
   },
   email: { type: String, required: true, unique: true },
@@ -12,12 +12,11 @@ const userSchema = new mongoose.Schema({
   bio: String,
   location: String,
   interests: [String],
-  connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  isOnline: {
-    type:Boolean,
-    default:false 
+  WorkEducation: {
+    type: String,
   },
-  settings: {
+  connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  settings: { 
     contactsOnly: Boolean,
     secretChatMode: Boolean
   }
