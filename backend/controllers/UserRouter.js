@@ -2,24 +2,25 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
+// Create user
 router.post('/postuserdetails', async (req, res) => {
   try {
-    const { name, email, profileImage, bio, location, interests, isOnline, settings } = req.body;
-    if (!name || !email) {
-      return res.status(400).json({ message: 'Name and email are required' });
+    const { username, email, profileImage, bio, location, interests, WorkEducation, settings } = req.body;
+    if (!username || !email) {
+      return res.status(400).json({ message: 'Username and email are required' });
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists with this email' });
     }
     const newUser = new User({
-      name,
+      username,
       email,
       profileImage,
       bio,
       location,
       interests,
-      isOnline,
+      WorkEducation,
       settings
     });
     await newUser.save();
@@ -30,6 +31,7 @@ router.post('/postuserdetails', async (req, res) => {
   }
 });
 
+// Get user by ID
 router.get('/getuserdetails/:id', async (req, res) => {  
   try {
     const user = await User.findById(req.params.id);
@@ -42,6 +44,8 @@ router.get('/getuserdetails/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error'});
   }
 });
+
+// Get all users
 router.get('/getuserdetails', async (req, res) => {
   try {
     const users = await User.find();
@@ -52,10 +56,15 @@ router.get('/getuserdetails', async (req, res) => {
   }
 });
 
+// Update user
 router.put('/updateuserdetails/:id', async (req, res) => {
   try {
-    const { name, email, profileImage, bio, location, interests, isOnline, settings } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, { name, email, profileImage, bio, location, interests, isOnline, settings }, { new: true });
+    const { username, email, profileImage, bio, location, interests, WorkEducation, settings } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { username, email, profileImage, bio, location, interests, WorkEducation, settings },
+      { new: true }
+    );
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -65,6 +74,8 @@ router.put('/updateuserdetails/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error'});
   }
 });
+
+// Delete user
 router.delete('/deleteuserdetails/:id', async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -77,7 +88,5 @@ router.delete('/deleteuserdetails/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error'});
   }
 }); 
-
-
 
 module.exports = router;
