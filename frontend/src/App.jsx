@@ -10,7 +10,9 @@ function App() {
     <>
       <h1>Hello!welcome to ZYLO.</h1>
     </>
-  )
+
+   ); 
+ 
 }
 
-export default App
+export default App;
