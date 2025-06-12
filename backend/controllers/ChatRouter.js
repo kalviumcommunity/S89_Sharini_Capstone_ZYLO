@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.post("/message", async (req, res) => {
   try {
-    const { sender, receiver, content, type, expiresAt } = req.body;
+    const { sender, receiver, content } = req.body;
 
     if (!sender || !receiver || !content) {
       return res.status(400).json({ message: "Sender, receiver, and content are required." });
     }
-    const newMessage = new Message({ sender, receiver, content, type, expiresAt });
+    const newMessage = new Message({ sender, receiver, content });
     await newMessage.save();
 
     res.status(201).json({ message: "Message created", messageData: newMessage });
@@ -20,29 +20,22 @@ router.post("/message", async (req, res) => {
     res.status(500).json({ message: "Internal server error." });
   }
 });
-
-  router.get("/getmessages/:id", async (req, res) => {
-    try {
-      const message = await Message.findById(req.params.id);
-      if (!message) {
-        return res.status(404).json({ message: "Message not found" });
-      }
-      res.status(200).json({ message: "Message retrieved", messageData: message });
-    } catch (error) {
-      console.error("Error in GET /getmessages/:id:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
   
-  router.get("/getmessages", async (req, res) => {
-    try {
-      const messages = await Message.find();
-      res.status(200).json({ message: "Messages retrieved", messages });
-    } catch (error) {
-      console.error("Error in GET /getmessages:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
+router.get("/getmessages/:user1/:user2", async (req, res) => {
+  try {
+    const { user1, user2 } = req.params;
+    const messages = await Message.find({
+      $or: [
+        { sender: user1, receiver: user2 },
+        { sender: user2, receiver: user1 }
+      ]
+    }).sort({ createdAt: 1 }); // oldest first
+    res.status(200).json({ message: "Messages retrieved", messages });
+  } catch (error) {
+    console.error("Error in GET /getmessages/:user1/:user2:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
   router.put('/updateMessages/:id', async (req, res) => {
     try {
