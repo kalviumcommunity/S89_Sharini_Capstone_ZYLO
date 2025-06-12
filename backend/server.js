@@ -31,7 +31,6 @@ app.use('/api/posts', PostRouter);
 app.use("/api", require("./controllers/LiveRouter"));
 
 
-
 app.listen(PORT, async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URI);
