@@ -9,16 +9,10 @@ function App() {
   return (
     <>
       <h1>Hello!welcome to ZYLO.</h1>
-=======
-import './App.css'
-
-function App() {
-
-  return (
-    <>
-      <h1>Hello! Welcome to ZYLO</h1>
     </>
-  )
+
+   ); 
+ 
 }
 
-export default App
+export default App;
