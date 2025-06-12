@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  settings: { 
+  settings: {
     contactsOnly: Boolean,
     secretChatMode: Boolean
   }

@@ -19,7 +19,7 @@ const messageSchema = new mongoose.Schema({
     type: String,
     enum: ['text', 'image', 'gif', 'music'],
     default: 'text'
-  }, 
+  },
   expiresAt: {
     type: Date,
     default: null

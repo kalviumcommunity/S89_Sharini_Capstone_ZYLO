@@ -24,4 +24,3 @@ const postSchema = new mongoose.Schema({
 const Memories = mongoose.model('Post', postSchema);
 
 module.exports = Memories;
-
