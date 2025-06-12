@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Memories = require('../models/Post'); 
+const Memories = require('../models/Memories'); 
 
 
 router.post('/postmemories', async (req, res) => {
