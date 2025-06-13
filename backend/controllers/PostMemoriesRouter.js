@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Memories = require('../models/Post'); 
+const Memories = require('../models/Memories'); 
 
 
 router.post('/postmemories', async (req, res) => {
@@ -77,7 +77,7 @@ router.delete('/deleteMemories/:id', async (req, res) => {
     console.error('Error in DELETE /deleteMemories/:id', error);
     res.status(500).json({ message: 'Internal server error'});
   }
-});
-
+}); 
+ 
 
 module.exports = router;
