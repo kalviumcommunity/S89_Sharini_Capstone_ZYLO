@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const UserRouter = require("./controllers/UserRouter");
 const ChatRouter = require("./controllers/ChatRouter");
 const PostRouter = require("./controllers/PostMemoriesRouter");
+const UserAuthRouter = require("./controllers/UserAuthRouter");
 const cors = require("cors");
 
 dotenv.config();
@@ -15,7 +16,7 @@ app.use(cors());
 
 const PORT = 2309; 
 
-app.get("/zylo",async(req,res)=>{
+app.get("/zylo", async(req, res) => {
     try {
         res.status(200).send({msg:"Welcome to ZYLO,let's start chatting and make friends.."});
     } catch (error) {
@@ -28,7 +29,9 @@ app.get("/zylo",async(req,res)=>{
 app.use('/api/users', UserRouter);
 app.use('/api/chats', ChatRouter);
 app.use('/api/posts', PostRouter);
-app.use("/api", require("./controllers/LiveRouter"));
+app.use("/api/live", require("./controllers/LiveRouter"));
+app.use("/api/auth",UserAuthRouter);
+
 
 
 app.listen(PORT, async () => {

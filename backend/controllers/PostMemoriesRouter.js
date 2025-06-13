@@ -77,7 +77,7 @@ router.delete('/deleteMemories/:id', async (req, res) => {
     console.error('Error in DELETE /deleteMemories/:id', error);
     res.status(500).json({ message: 'Internal server error'});
   }
-});
-
+}); 
+ 
 
 module.exports = router;
