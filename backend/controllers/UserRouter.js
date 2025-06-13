@@ -3,33 +3,44 @@ const router = express.Router();
 const User = require('../models/User');
 
 // Create user
+// ...existing code...
+
+// Create or update user (profile page logic)
 router.post('/postuserdetails', async (req, res) => {
   try {
     const { username, email, profileImage, bio, location, interests, WorkEducation, settings } = req.body;
     if (!username || !email) {
       return res.status(400).json({ message: 'Username and email are required' });
     }
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists with this email' });
-    }
-    const newUser = new User({
-      username,
-      email,
-      profileImage,
-      bio,
-      location,
-      interests,
-      WorkEducation,
-      settings
+
+    // Find user by email and update if exists, else create new
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      {
+        username,
+        profileImage,
+        bio,
+        location,
+        interests,
+        WorkEducation,
+        settings
+      },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
+
+    const isNew = updatedUser.createdAt && updatedUser.createdAt.getTime() === updatedUser.updatedAt.getTime();
+
+    res.status(200).json({
+      message: isNew ? 'User created successfully' : 'User updated successfully',
+      user: updatedUser
     });
-    await newUser.save();
-    res.status(201).json({ message: 'User created successfully', user: newUser });
   } catch (error) {
     console.error('Error in POST /postuserdetails:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+// ...existing code...
 
 // Get user by ID
 router.get('/getuserdetails/:id', async (req, res) => {  
