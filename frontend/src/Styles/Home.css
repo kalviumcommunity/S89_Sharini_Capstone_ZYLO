@@ -1,0 +1,253 @@
+/* General styles */
+.homepage-wrapper {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f8fa;
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body, * {
+  user-select: none;
+  caret-color:transparent;
+}
+/* Header */
+.homepage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 48px 24px 48px;
+  background: #fff;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.logo p {
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #4a90e2;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.login-btn,
+.signup-btn {
+  background: #fff;
+  color: #4a90e2;
+  border: 2px solid #4a90e2;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: 10px;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background: #357ab8;
+  color: #fff;
+  border-color: #357ab8;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 48px 0 32px 0;
+  background: linear-gradient(90deg, #e3f0ff 60%, #fff 100%);
+  border-radius: 0 0 40px 40px;
+  margin-bottom: 32px;
+}
+
+.hero-img {
+  box-shadow: 0 8px 32px rgba(74, 144, 226, 0.12);
+  border: 3px solid #4a90e2;
+}
+
+.center-container {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.center-container h1 {
+  font-size: 2.5rem;
+  color: #4a90e2;
+  margin-bottom: 10px;
+}
+
+.center-container p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.cta-btn {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.cta-btn:hover {
+  background: #357ab8;
+}
+
+/* Features Section */
+.features-section {
+  padding: 40px 0 32px 0;
+  background: #fff;
+}
+
+.features-section h2 {
+  text-align: center;
+  color: #4a90e2;
+  margin-bottom: 32px;
+  font-size: 2rem;
+}
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+}
+
+.feature-card {
+  background: #c9dbff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(74, 144, 226, 0.08);
+  padding: 28px 22px;
+  width: 260px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(74, 144, 226, 0.13);
+}
+
+.feature-card img {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 18px;
+}
+
+.feature-card h3 {
+  color: #357ab8;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.feature-card p {
+  color: #444;
+  font-size: 1rem;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  background: #e3f0ff;
+  padding: 40px 0 32px 0;
+}
+
+.testimonials-section h2 {
+  text-align: center;
+  color: #357ab8;
+  margin-bottom: 28px;
+  font-size: 1.7rem;
+}
+
+.testimonials-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.testimonial {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(74, 144, 226, 0.07);
+  padding: 22px 30px;
+  font-style: italic;
+  color: #333;
+  font-size: 1.1rem;
+  max-width: 320px;
+}
+
+/* Footer */
+.homepage-footer {
+  background: #4a90e2;
+  color: #fff;
+  padding: 40px 0 20px 0;
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.footer-grid h4 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.footer-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-grid li {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  transition: text-decoration 0.2s;
+}
+
+.footer-grid li:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  background: #144a78;
+  color: #fff;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  border-radius: 0 0 10px 10px;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .hero-section {
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 0;
+    gap: 24px;
+  }
+  .features-grid, .testimonials-grid, .footer-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .homepage-header {
+    flex-direction: column;
+    gap: 18px;
+    padding: 24px 12px 18px 12px;
+  }
+}
