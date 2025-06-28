@@ -30,7 +30,7 @@ app.use('/api/users', UserRouter);
 app.use('/api/chats', ChatRouter);
 app.use('/api/posts', PostRouter);
 app.use("/api/live", require("./controllers/LiveRouter"));
-app.use("/api/auth",UserAuthRouter);
+app.use("/api/auth", UserAuthRouter);
 
 
 
