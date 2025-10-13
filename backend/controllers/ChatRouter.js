@@ -1,18 +1,18 @@
 const express = require('express');
-const Message = require('../models/Chat');
+const Message = require('../models/Chatschema');
 
 const router = express.Router();
 
 // CREATE - POST /messages - Create a new message
 router.post('/messages', async (req, res) => {
   try {
-    const { sender, receiver, content, type, isSecret, expiresAt } = req.body;
+    const { sender, receiver, content, type, isOnline, expiresAt } = req.body;
     const newMessage = new Message({
       sender,
       receiver,
       content,
       type,
-      isSecret,
+      isOnline,
       expiresAt
     });
     await newMessage.save();
@@ -22,25 +22,98 @@ router.post('/messages', async (req, res) => {
   }
 });
 
-// READ - GET /messages/:id - Get a message by ID
-router.get('/getmessages/:id', async (req, res) => {
+// Get all messages between two users (conversation)
+router.get('/getmessages/conversation', async (req, res) => {
   try {
-    const message = await Message.findById(req.params.id).populate('sender receiver');
-    if (message) {
-      res.status(200).json({ message: 'Message retrieved', messageData: message });
-    } else {
-      res.status(404).json({ message: 'Message not found' });
-    }
+    const { user1, user2 } = req.query;
+    if (!user1 || !user2) return res.status(400).json({ messages: [] });
+
+    const messages = await Message.find({
+      $or: [
+        { sender: user1, receiver: user2 },
+        { sender: user2, receiver: user1 }
+      ]
+    }).sort({ createdAt: 1 });
+
+    res.status(200).json({ messages });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ messages: [] });
   }
 });
 
 // READ - GET /messages - Get all messages
 router.get('/getmessages', async (req, res) => {
   try {
-    const messages = await Message.find().populate('sender receiver');
+    const messages = await Message.find();
     res.status(200).json({ message: 'Messages retrieved', messages });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error });
+  }
+});
+
+// Get all conversations for a user (inbox)
+router.get('/conversations/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Aggregate to get the latest message per conversation
+    const conversations = await Message.aggregate([
+      {
+        $match: {
+          $or: [
+            { sender: userId },
+            { receiver: userId }
+          ]
+        }
+      },
+      {
+        $sort: { createdAt: -1 }
+      },
+      {
+        $group: {
+          _id: {
+            $cond: [
+              { $eq: ["$sender", userId] },
+              "$receiver",
+              "$sender"
+            ]
+          },
+          lastMessage: { $first: "$$ROOT" }
+        }
+      }
+    ]);
+
+    res.status(200).json({ conversations: conversations.map(c => c.lastMessage) });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error });
+  }
+});
+
+// Mark messages as read (optional, if you add a 'read' field to schema)
+router.patch('/messages/read', async (req, res) => {
+  try {
+    const { sender, receiver } = req.body;
+    await Message.updateMany(
+      { sender, receiver, read: false },
+      { $set: { read: true } }
+    );
+    res.status(200).json({ message: 'Messages marked as read' });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error });
+  }
+});
+
+// Delete all messages in a conversation
+router.delete('/messages/conversation', async (req, res) => {
+  try {
+    const { user1, user2 } = req.body;
+    await Message.deleteMany({
+      $or: [
+        { sender: user1, receiver: user2 },
+        { sender: user2, receiver: user1 }
+      ]
+    });
+    res.status(200).json({ message: 'Conversation deleted' });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error', error });
   }
@@ -73,7 +146,5 @@ router.delete('/messages/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal server error', error });
   }
 });
-
-
 
 module.exports = router;

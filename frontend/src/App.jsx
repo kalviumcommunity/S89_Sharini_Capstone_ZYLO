@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import AllRoutes from './AllRoutes';
+import { BrowserRouter } from 'react-router-dom'
+import AllRoutes from './AllRoutes'
+import "./Styles/global.css"
 
-function App() { 
+
+function App() {
 
   return (
-    <>
-      <BrowserRouter>
-      <AllRoutes/>
-      </BrowserRouter>
-    </>
+   <BrowserRouter>
+   <AllRoutes/>
+   </BrowserRouter>
   )
 }
 

@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
   sender: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
   receiver: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
   },
@@ -19,6 +19,10 @@ const messageSchema = new mongoose.Schema({
     type: String,
     enum: ['text', 'image', 'gif', 'music'],
     default: 'text'
+  },
+  isOnline: {
+    type: Boolean,
+    default: false
   },
   expiresAt: {
     type: Date,

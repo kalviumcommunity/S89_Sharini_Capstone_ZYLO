@@ -22,7 +22,7 @@ function HomePage() {
         </nav>
       </header>
 
-      <section className="hero-section" style={{ height: "auto", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "row", gap: "50px" }}>
+      <section className="home-hero-section" style={{ height: "auto", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "row", gap: "50px" }}>
         <img
           src="https://i.pinimg.com/736x/2e/23/ec/2e23ec0845a7097a1ae49436ae38fd38.jpg"
           alt="Holding phone with location pins"
