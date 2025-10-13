@@ -1,0 +1,76 @@
+/* Navbar container */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between; /* logo left, buttons center, profile right */
+  align-items: center;
+  padding: 0.8rem 2rem;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 60px;
+}
+
+/* Logo */
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* Center buttons */
+.navbar-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  height: 49px;
+  min-width: 103px;
+}
+
+.navbar-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Profile picture */
+.navbar-profile-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-profile {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-profile:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+}

@@ -5,42 +5,42 @@ import '../Styles/UserProfile.css';
 
 const UserProfile = () => {
   const [user, setUser] = useState({
-    username: '',
-    email: '',
+    _id: null,
+    username: localStorage.getItem('username') || '',
+    email: localStorage.getItem('email') || '',
     profileImage: '',
     bio: '',
     location: '',
     interests: [],
+    WorkEducation: '',
     settings: {
       contactsOnly: false,
       secretChatMode: false,
     },
   });
 
-  const [initialUser, setInitialUser] = useState(null);
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
+  // ✅ Fetch logged-in user by email
   useEffect(() => {
-    // Get username and email from localStorage after login/signup
-    const username = localStorage.getItem('username') || '';
-    const email = localStorage.getItem('email') || '';
-    const initial = {
-      username,
-      email,
-      profileImage: '',
-      bio: '',
-      location: '',
-      interests: [],
-      settings: {
-        contactsOnly: false,
-        secretChatMode: false,
-      },
+    const email = localStorage.getItem('id') || '';
+    if (!email) return;
+
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8000/api/users/getuser/${email}`);
+        if (res.data?.user) {
+          setUser(res.data.user); // backend must return _id
+        }
+      } catch (err) {
+        console.log('User not found, fallback to defaults.');
+      }
     };
-    setUser(initial);
-    setInitialUser(initial);
+    fetchUser();
   }, []);
 
+  // ✅ Handle field changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (name === 'contactsOnly' || name === 'secretChatMode') {
@@ -52,13 +52,11 @@ const UserProfile = () => {
         },
       }));
     } else {
-      setUser((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+      setUser((prev) => ({ ...prev, [name]: value }));
     }
   };
 
+  // ✅ Handle interests input
   const handleInterestsChange = (e) => {
     setUser((prev) => ({
       ...prev,
@@ -66,7 +64,7 @@ const UserProfile = () => {
     }));
   };
 
-  // Handle profile image file selection and preview
+  // ✅ Profile image upload
   const handleProfileImageClick = () => {
     fileInputRef.current.click();
   };
@@ -76,43 +74,33 @@ const UserProfile = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUser((prev) => ({
-          ...prev,
-          profileImage: reader.result,
-        }));
+        setUser((prev) => ({ ...prev, profileImage: reader.result }));
       };
       reader.readAsDataURL(file);
-      // If you want to upload to server, do it here
     }
   };
 
-  // Helper to compare user objects (shallow for this use case)
-  const isUserChanged = () => {
-    if (!initialUser) return true;
-    return (
-      user.username !== initialUser.username ||
-      user.email !== initialUser.email ||
-      user.profileImage !== initialUser.profileImage ||
-      user.bio !== initialUser.bio ||
-      user.location !== initialUser.location ||
-      user.settings.contactsOnly !== initialUser.settings.contactsOnly ||
-      user.settings.secretChatMode !== initialUser.settings.secretChatMode ||
-      JSON.stringify(user.interests) !== JSON.stringify(initialUser.interests)
-    );
-  };
-
+  // ✅ Submit handler (always update if user already exists)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isUserChanged()) {
-      alert('You did not change anything.');
-      navigate('/lumeno');
-      return;
-    }
     try {
-      await axios.post('http://localhost:8000/api/users/postuserdetails', user);
-      alert('Profile updated!');
+      let response;
+      if (user._id) {
+        // Update existing user
+        response = await axios.put(`http://localhost:8000/api/users/updateuserdetails/${user._id}`, user);
+        alert('Profile updated!');
+      } else {
+        // Create new user
+        response = await axios.post('http://localhost:8000/api/users/postuserdetails', user);
+        alert('Profile created!');
+      }
+
+      // ✅ Sync localStorage with latest values
+      localStorage.setItem('username', response.data.user.username);
+      localStorage.setItem('email', response.data.user.email);
       navigate('/lumeno');
     } catch (error) {
+      console.log(error);
       alert(error.response?.data?.message || 'Update failed');
     }
   };
@@ -123,17 +111,10 @@ const UserProfile = () => {
         <div className="profile-avatar-wrapper">
           <img
             className="profile-avatar"
-            src={user.profileImage || "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"}
+            src={user.profileImage || 'https://planetsains.com/wp-content/uploads/2022/09/anonymous-avatar-icon-25.png'}
             alt={user.username}
           />
-          <button
-            type="button"
-            className="profile-avatar-add-btn"
-            onClick={handleProfileImageClick}
-            title="Add profile image"
-          >
-            +
-          </button>
+          <button type="button" className="profile-avatar-add-btn" onClick={handleProfileImageClick}>+</button>
           <input
             type="file"
             accept="image/*"
@@ -142,109 +123,53 @@ const UserProfile = () => {
             onChange={handleProfileImageChange}
           />
         </div>
+
         <div className="profile-fields">
           <label>
             Username:
-            <input
-              type="text"
-              name="username"
-              value={user.username}
-              onChange={handleChange}
-              placeholder="Username"
-            />
+            <input type="text" name="username" value={user.username} onChange={handleChange} readOnly />
           </label>
           <label>
             Email:
-            <input
-              type="email"
-              name="email"
-              value={user.email}
-              onChange={handleChange}
-              placeholder="Email"
-            />
+            <input type="email" name="email" value={user.email} onChange={handleChange} readOnly />
           </label>
           <label>
             Profile Image URL:
-            <input
-              type="text"
-              name="profileImage"
-              value={user.profileImage}
-              onChange={handleChange}
-              placeholder="Profile image URL"
-            />
+            <input type="text" name="profileImage" value={user.profileImage} onChange={handleChange} />
           </label>
           <label>
             Bio:
-            <textarea
-              name="bio"
-              value={user.bio}
-              onChange={handleChange}
-              placeholder="Tell us about yourself"
-            />
+            <textarea name="bio" value={user.bio} onChange={handleChange} placeholder="Tell us about yourself" />
           </label>
           <label>
             Location:
-            <input
-              type="text"
-              name="location"
-              value={user.location}
-              onChange={handleChange}
-              placeholder="Your location"
-            />
+            <input type="text" name="location" value={user.location} onChange={handleChange} />
           </label>
           <label>
             Interests (comma separated):
-            <input
-              type="text"
-              name="interests"
-              value={user.interests.join(', ')}
-              onChange={handleInterestsChange}
-              placeholder="e.g. Bonds, Trading, Finance"
-            />
+            <input type="text" name="interests" value={user.interests.join(', ')} onChange={handleInterestsChange} />
           </label>
           <label>
             Work/Education:
-            <input
-              type="text"
-              name="WorkEducation"
-              value={user.WorkEducation}
-              onChange={handleChange}
-              placeholder="Your work/education"
-            />
+            <input type="text" name="WorkEducation" value={user.WorkEducation} onChange={handleChange} />
           </label>
+
           <fieldset className="profile-settings">
             <legend>Settings</legend>
             <label>
-              <input
-                type="checkbox"
-                name="contactsOnly"
-                checked={user.settings.contactsOnly}
-                onChange={handleChange}
-              />
+              <input type="checkbox" name="contactsOnly" checked={user.settings.contactsOnly} onChange={handleChange} />
               Contacts Only
             </label>
             <label>
-              <input
-                type="checkbox"
-                name="secretChatMode"
-                checked={user.settings.secretChatMode}
-                onChange={handleChange}
-              />
+              <input type="checkbox" name="secretChatMode" checked={user.settings.secretChatMode} onChange={handleChange} />
               Secret Chat Mode
             </label>
           </fieldset>
         </div>
+
         <div className="profile-actions">
-          <button className="profile-save-btn" type="submit">
-            Save
-          </button>
-          <button
-            className="profile-skip-btn"
-            type="button"
-            onClick={() => navigate('/lumeno')}
-          >
-            Skip
-          </button>
+          <button className="profile-save-btn" type="submit" onClick={handleSubmit}>Save</button>
+          <button className="profile-skip-btn" type="button" onClick={() => navigate('/lumeno')}>Skip</button>
         </div>
       </form>
     </div>

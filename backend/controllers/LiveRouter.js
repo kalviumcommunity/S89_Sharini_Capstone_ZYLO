@@ -1,5 +1,5 @@
 const express = require('express');
-const Live = require('../models/Live'); // Adjust the path as necessary
+const Live = require('../models/LiveSchema'); // Adjust the path as necessary
 
 const router = express.Router();
 

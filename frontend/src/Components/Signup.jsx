@@ -12,13 +12,11 @@ const Signup = () => {
 const handleSignup = async (e) => {
   e.preventDefault();
   try {
-    const response = await axios.post('http://localhost:2309/api/auth/signup', { username, email, password });
-    // Store user info and token in localStorage
+    const response = await axios.post('http://localhost:8000/api/userAuth/signup', { username, email, password });
     localStorage.setItem('username', response.data.user.username);
     localStorage.setItem('email', response.data.user.email);
     localStorage.setItem('token', response.data.token);
-
-    alert('Signup successful! You can now log in.');
+    alert('you have successfully signed up!');
     navigate('/profile');
   } catch (error) {
     alert(error.response?.data?.message || 'Signup failed');
@@ -57,7 +55,7 @@ const handleSignup = async (e) => {
             onChange={e => setPassword(e.target.value)}
             required
           />
-          <button className="signup-button" type="submit">Sign Up</button>
+          <button  className="signup-button" type="submit">Sign Up</button>
         </form>
         <p className="signup-footer">
           Already have an account? <a href="/login">Log In</a>

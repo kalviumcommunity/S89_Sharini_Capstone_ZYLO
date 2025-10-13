@@ -11,10 +11,10 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:2309/api/auth/login', { username, password });
+      const response = await axios.post('http://localhost:8000/api/userAuth/login', { username, password });
       localStorage.setItem('username', response.data.user.username);
       alert('Login successful!');
-      navigate('/lumeno'); 
+      navigate('/lumeno'); // Redirect to user profile or home page
     } catch (error) {
       alert(error.response?.data?.message || 'Login failed');
     }
