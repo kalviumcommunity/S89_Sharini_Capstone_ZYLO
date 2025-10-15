@@ -22,7 +22,7 @@ app.use("/api/userAuth",UserAuthRouter);
 app.use("/api/live",LiveRouter); 
 app.use("/api/aiChatbot", require("./controllers/AIChatbot")); // AI Chatbot controller
 
-app.get("/zylo", (req, res) => res.send({ msg: "Welcome to ZYLO" }));
+app.get("/", (req, res) => res.send({ msg: "Welcome to ZYLO,let's start chatting and make friends.." }));
 
 const server = http.createServer(app);
 setupSocket(server);
